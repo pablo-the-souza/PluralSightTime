@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Contexts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -17,6 +19,12 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers().AddNewtonsoftJson();
+
+            var connectionString = @"Server=localhost;Database=HabitsDB;User ID=sa;Password=Blah123456;";
+            services.AddDbContext<WeekInfoContext>(o => 
+            {
+                o.UseSqlServer(connectionString);
+            });
         }
             
 
